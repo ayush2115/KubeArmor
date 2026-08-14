@@ -89,8 +89,7 @@ A few notes on those columns:
 - **No host change, no runC swap.** Engines that replace the runtime binary cannot install on
   Bottlerocket, Talos, or GKE COS without manual node work.
 
-The table comes from *Container Runtime Security, Comparative Insights, 2025 Edition* by Rahul
-Jadhav. For the longer argument, read [differentiation](getting-started/differentiation.md).
+Want the longer version? Read [differentiation](getting-started/differentiation.md).
 
 ## Recent attacks, and the policy that stops them
 
@@ -150,9 +149,8 @@ and 5,000 concurrent:
 
 That is a 1.6% hit on throughput. The agent itself costs about 0.14 cores and 112 Mi per node.
 
-> These are from the [March 2023 benchmark run](https://kubearmor.io/blog/KubeArmor-Performance-Benchmarking-Data)
-> on the v1.0 line, which also has the BPF-LSM tables. Somebody should re-run it on a current
-> release.
+The [full benchmark run](https://kubearmor.io/blog/KubeArmor-Performance-Benchmarking-Data) has the
+per-reading tables and the BPF-LSM numbers. It was measured on the v1.0 line in March 2023.
 
 ## Documentation 📓
 
