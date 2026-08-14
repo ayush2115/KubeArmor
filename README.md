@@ -42,10 +42,10 @@ enforcer loads them through whichever LSM the node runs.
 
 <img src=".gitbook/assets/diagrams/fig1-architecture.svg" alt="KubeArmor components. The control plane supplies policy custom resources, the operator with its snitch job, and the controller. On each node one DaemonSet pod runs the daemon, system monitor, runtime enforcer, and log feeder. The enforcer loads rules into kernel LSM hooks, which allow or deny each syscall inline. A dashed path copies events upward for telemetry only. The log feeder streams to the karmor CLI, the relay server, and downstream sinks." width="100%">
 
-Two paths leave the kernel, and the difference matters:
+Two things leave that flow, and the difference matters:
 
-- **Orange is the decision.** It happens at the LSM hook, in kernel space, on the syscall the
-  workload just made.
+- **Orange is the decision.** It happens at the LSM hook, in kernel space, on the call the workload
+  just made.
 - **Dashed blue is a copy of the event**, for telemetry only. A dropped event costs you a log line.
   It never weakens enforcement, because enforcement never waits for userspace.
 
@@ -60,8 +60,8 @@ timeline.
 
 <img src=".gitbook/assets/diagrams/fig2-decision-point.svg" alt="Two timelines for the same syscall. In the detect and respond model the syscall completes, a probe copies the event, a userspace engine matches a rule, and a kill or quarantine response lands milliseconds to minutes later, by which time the data is read or gone. In the inline model the LSM hook checks the rule inside the same syscall, which returns Permission denied, so nothing ran." width="100%">
 
-The upper path needs four steps to finish. An attacker breaks it two ways: flood the event buffer so
-the event never ships, or just finish the job first. Ransomware deletes a file in milliseconds.
+The upper path needs three steps to finish. An attacker breaks it two ways: flood the event buffer
+so the event never ships, or just finish the job first. Ransomware deletes a file in milliseconds.
 
 The lower path has no steps to break.
 

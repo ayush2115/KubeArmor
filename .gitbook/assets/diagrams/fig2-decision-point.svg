@@ -1,116 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 372" width="1060" height="372" role="img" aria-label="Two timelines for the same syscall. In the detect and respond model the syscall completes, a kernel probe copies the event, a userspace engine matches a rule, and a kill or quarantine response lands milliseconds to minutes later, by which time the file is already read or deleted. In the inline model the LSM hook checks the rule inside the same syscall, which returns Permission denied, so nothing ran.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 306" width="960" height="306" role="img" aria-label="Two ways to handle the same syscall. Detect and respond lets the action run, ships the event to userspace, then sends a kill signal, by which time the damage is done. KubeArmor checks the rule at an LSM hook inside the same syscall, which returns Permission denied, so nothing ran.">
   <defs>
     <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0 1L9 5L0 9z" fill="currentColor"/>
     </marker>
-    <g id="ic-bolt" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
-      <path d="M10.4 1.5L4 10h4.2l-1.3 6.5L14 8H9.4z"/>
-    </g>
-    <g id="ic-copy" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
-      <rect x="2.4" y="2.4" width="9" height="9" rx="1.2"/><rect x="6.6" y="6.6" width="9" height="9" rx="1.2"/>
-    </g>
-    <g id="ic-rule" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
-      <path d="M3 2.5h9l3.4 3.4v10.1H3z"/><path d="M6 9.6l1.9 1.9L12.4 7"/>
-    </g>
-    <g id="ic-deny" fill="none" stroke="currentColor" stroke-width="1.4">
-      <circle cx="9" cy="9" r="6.6"/><path d="M4.4 13.6L13.6 4.4"/>
-    </g>
-    <g id="ic-alert" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
-      <path d="M9 2.2l7 13.6H2z"/><path d="M9 7v4.2M9 13.2v.9"/>
-    </g>
-    <g id="ic-chip" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
-      <rect x="4.6" y="4.6" width="8.8" height="8.8" rx="1"/>
-      <path d="M7.4 1.6v3M10.6 1.6v3M7.4 13.4v3M10.6 13.4v3M1.6 7.4h3M1.6 10.6h3M13.4 7.4h3M13.4 10.6h3"/>
-    </g>
-    <g id="ic-lock" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
-      <rect x="3.4" y="7.8" width="11.2" height="7.8" rx="1.4"/><path d="M6.2 7.8V5.8a2.8 2.8 0 0 1 5.6 0v2"/>
-    </g>
-    <g id="ic-shield" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
-      <path d="M9 1.8l6 2.2v5c0 4-2.6 6.6-6 7.8-3.4-1.2-6-3.8-6-7.8v-5z"/><path d="M6.3 9.2l2 2 3.4-3.6"/>
-    </g>
-    <g id="ic-clock" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+    <g id="ic-clock" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
       <circle cx="9" cy="9" r="6.8"/><path d="M9 4.8V9l3 2"/>
+    </g>
+    <g id="ic-lock" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+      <rect x="3.4" y="7.8" width="11.2" height="7.8" rx="1.4"/><path d="M6.2 7.8V5.8a2.8 2.8 0 0 1 5.6 0v2"/>
     </g>
   </defs>
 
-  <rect x="0" y="0" width="1060" height="372" fill="#FFFFFF"/>
+  <rect x="0" y="0" width="960" height="306" fill="#FFFFFF"/>
 
   <g font-family="ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
 
-    <!-- upper timeline -->
-    <text x="28" y="30" font-family="ui-monospace, Consolas, monospace" font-size="10.5" letter-spacing="1.4" fill="#7A868C">DETECT AND RESPOND</text>
+    <!-- detect and respond -->
+    <text x="30" y="34" font-family="ui-monospace, Consolas, monospace" font-size="11" letter-spacing="1.4" fill="#7A868C">DETECT AND RESPOND</text>
 
-    <rect x="28" y="46" width="186" height="60" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
-    <g color="#4A555B"><use href="#ic-bolt" x="42" y="66"/></g>
-    <text x="70" y="73" font-size="12.5" font-weight="600" fill="#14181C">process calls open()</text>
-    <text x="42" y="94" font-size="10.5" fill="#7A868C">the file is already open</text>
+    <rect x="30" y="50" width="212" height="52" rx="5" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.6"/>
+    <text x="136" y="82" font-size="13" font-weight="600" fill="#14181C" text-anchor="middle">the action runs</text>
 
-    <rect x="234" y="46" width="186" height="60" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
-    <g color="#4A555B"><use href="#ic-copy" x="248" y="66"/></g>
-    <text x="276" y="73" font-size="12.5" font-weight="600" fill="#14181C">probe copies the event</text>
-    <text x="248" y="94" font-size="10.5" fill="#7A868C">ring buffer can overflow</text>
+    <rect x="288" y="50" width="212" height="52" rx="5" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.6"/>
+    <text x="394" y="82" font-size="13" font-weight="600" fill="#14181C" text-anchor="middle">event ships to userspace</text>
 
-    <rect x="440" y="46" width="186" height="60" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
-    <g color="#4A555B"><use href="#ic-rule" x="454" y="66"/></g>
-    <text x="482" y="73" font-size="12.5" font-weight="600" fill="#14181C">userspace rule match</text>
-    <text x="454" y="94" font-size="10.5" fill="#7A868C">context switch, then logic</text>
+    <rect x="546" y="50" width="176" height="52" rx="5" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.6"/>
+    <text x="634" y="82" font-size="13" font-weight="600" fill="#14181C" text-anchor="middle">kill signal sent</text>
 
-    <rect x="646" y="46" width="186" height="60" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
-    <g color="#4A555B"><use href="#ic-deny" x="660" y="66"/></g>
-    <text x="688" y="73" font-size="12.5" font-weight="600" fill="#14181C">response is sent</text>
-    <text x="660" y="94" font-size="10.5" fill="#7A868C">kill, or quarantine the pod</text>
+    <rect x="768" y="50" width="162" height="52" rx="5" fill="#FDF3ED" stroke="#B23A0B" stroke-width="1.8"/>
+    <text x="849" y="82" font-size="13" font-weight="650" fill="#B23A0B" text-anchor="middle">too late</text>
 
-    <rect x="852" y="46" width="186" height="60" rx="4" fill="#FDF3ED" stroke="#B23A0B" stroke-width="1.8"/>
-    <g color="#B23A0B"><use href="#ic-alert" x="866" y="66"/></g>
-    <text x="894" y="73" font-size="12.5" font-weight="600" fill="#14181C">too late</text>
-    <text x="866" y="94" font-size="10.5" fill="#7A868C">data read, moved or gone</text>
-
-    <g color="#4A555B" stroke="#4A555B" stroke-width="1.4" fill="none">
-      <line x1="214" y1="76" x2="234" y2="76" marker-end="url(#arw)"/>
-      <line x1="420" y1="76" x2="440" y2="76" marker-end="url(#arw)"/>
-      <line x1="626" y1="76" x2="646" y2="76" marker-end="url(#arw)"/>
-      <line x1="832" y1="76" x2="852" y2="76" marker-end="url(#arw)"/>
+    <g color="#4A555B" stroke="#4A555B" stroke-width="1.6" fill="none">
+      <line x1="242" y1="76" x2="288" y2="76" marker-end="url(#arw)"/>
+      <line x1="500" y1="76" x2="546" y2="76" marker-end="url(#arw)"/>
+      <line x1="722" y1="76" x2="768" y2="76" marker-end="url(#arw)"/>
     </g>
 
-    <!-- exposure bar -->
-    <line x1="121" y1="130" x2="945" y2="130" stroke="#B23A0B" stroke-width="1.4" stroke-dasharray="5 4"/>
-    <line x1="121" y1="124" x2="121" y2="136" stroke="#B23A0B" stroke-width="1.6"/>
-    <line x1="945" y1="124" x2="945" y2="136" stroke="#B23A0B" stroke-width="1.6"/>
-    <g color="#B23A0B"><use href="#ic-clock" x="524" y="121"/></g>
-    <text x="533" y="153" font-size="11.5" font-weight="650" fill="#B23A0B" text-anchor="middle">the action ran at step one, the response lands milliseconds to minutes later</text>
+    <g color="#B23A0B"><use href="#ic-clock" x="127" y="118"/></g>
+    <text x="156" y="132" font-size="12" fill="#4A555B">milliseconds to minutes pass. The file is already read, moved or deleted.</text>
 
-    <line x1="28" y1="184" x2="1032" y2="184" stroke="#D8DFDC" stroke-width="1"/>
+    <line x1="30" y1="168" x2="930" y2="168" stroke="#D8DFDC" stroke-width="1"/>
 
-    <!-- lower timeline -->
-    <text x="28" y="214" font-family="ui-monospace, Consolas, monospace" font-size="10.5" letter-spacing="1.4" fill="#B23A0B">INLINE ENFORCEMENT, KUBEARMOR</text>
+    <!-- inline -->
+    <text x="30" y="198" font-family="ui-monospace, Consolas, monospace" font-size="11" letter-spacing="1.4" fill="#B23A0B">KUBEARMOR, INLINE</text>
 
-    <rect x="28" y="230" width="186" height="60" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
-    <g color="#4A555B"><use href="#ic-bolt" x="42" y="250"/></g>
-    <text x="70" y="257" font-size="12.5" font-weight="600" fill="#14181C">process calls open()</text>
-    <text x="42" y="278" font-size="10.5" fill="#7A868C">nothing has happened yet</text>
+    <rect x="30" y="214" width="212" height="52" rx="5" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.6"/>
+    <text x="136" y="246" font-size="13" font-weight="600" fill="#14181C" text-anchor="middle">the call is made</text>
 
-    <rect x="234" y="230" width="246" height="60" rx="4" fill="#FDF3ED" stroke="#B23A0B" stroke-width="1.8"/>
-    <g color="#B23A0B"><use href="#ic-chip" x="248" y="250"/></g>
-    <text x="276" y="257" font-size="12.5" font-weight="600" fill="#14181C">LSM hook checks the rule</text>
-    <text x="248" y="278" font-size="10.5" fill="#7A868C">kernel space, inside the same syscall</text>
+    <rect x="288" y="214" width="266" height="52" rx="5" fill="#FDF3ED" stroke="#B23A0B" stroke-width="2"/>
+    <text x="421" y="246" font-size="13" font-weight="650" fill="#14181C" text-anchor="middle">the kernel checks the rule</text>
 
-    <rect x="500" y="230" width="210" height="60" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
-    <g color="#B23A0B"><use href="#ic-lock" x="514" y="250"/></g>
-    <text x="542" y="257" font-size="12.5" font-weight="600" fill="#14181C">Permission denied</text>
-    <text x="514" y="278" font-size="10.5" fill="#7A868C">the syscall returns EPERM</text>
+    <rect x="600" y="214" width="220" height="52" rx="5" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.6"/>
+    <g color="#B23A0B"><use href="#ic-lock" x="618" y="231"/></g>
+    <text x="646" y="245" font-size="13" font-weight="600" fill="#14181C">Permission denied</text>
 
-    <rect x="730" y="230" width="210" height="60" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
-    <g color="#2F5A72"><use href="#ic-shield" x="744" y="250"/></g>
-    <text x="772" y="257" font-size="12.5" font-weight="600" fill="#14181C">nothing ran</text>
-    <text x="744" y="278" font-size="10.5" fill="#7A868C">no file was ever opened</text>
-
-    <g color="#B23A0B" stroke="#B23A0B" stroke-width="2.2" fill="none">
-      <line x1="214" y1="260" x2="234" y2="260" marker-end="url(#arw)"/>
-      <line x1="480" y1="260" x2="500" y2="260" marker-end="url(#arw)"/>
-      <line x1="710" y1="260" x2="730" y2="260" marker-end="url(#arw)"/>
+    <g color="#B23A0B" stroke="#B23A0B" stroke-width="2" fill="none">
+      <line x1="242" y1="240" x2="288" y2="240" marker-end="url(#arw)"/>
+      <line x1="554" y1="240" x2="600" y2="240" marker-end="url(#arw)"/>
     </g>
 
-    <text x="28" y="330" font-size="11.5" font-weight="650" fill="#B23A0B">One syscall. No context switch. No window for the attacker.</text>
-    <text x="28" y="350" font-size="11" fill="#4A555B">The upper path needs four steps to finish, and an attacker breaks it by flooding the event buffer or by completing the action first. The lower path has no steps to break.</text>
+    <text x="846" y="245" font-size="13" font-weight="650" fill="#B23A0B" text-anchor="middle">nothing ran</text>
   </g>
 </svg>
