@@ -11,12 +11,13 @@
 [![Docker Downloads](https://img.shields.io/docker/pulls/kubearmor/kubearmor)](https://hub.docker.com/r/kubearmor/kubearmor)
 [![ArtifactHub](https://img.shields.io/badge/ArtifactHub-KubeArmor-blue?logo=artifacthub&labelColor=grey&color=green)](https://artifacthub.io/packages/search?kind=19)
 
-**KubeArmor restricts what your workloads are allowed to do.** It controls process execution, file
-access, and network operations for pods, containers, and hosts.
+KubeArmor limits what a workload can do while it runs: which processes it can start, which files it
+can touch, which network calls it can make. It works on pods, containers, VMs, and bare metal.
 
-Most runtime security tools watch an action, then react. They kill the process or quarantine the pod
-*after* the code runs. KubeArmor decides inside the kernel, at a Linux Security Module hook, before
-the action completes. An unauthorized `exec` returns `Permission denied`. Nothing runs first.
+Most runtime security tools watch and then react. They spot a bad process and kill it, or they
+quarantine the pod, after the code has already run. KubeArmor asks the kernel to refuse instead. The
+check sits on a Linux Security Module hook, so an `exec` you did not allow returns `Permission
+denied` and the process never starts.
 
 |  |   |
 |:---|:---|
@@ -32,38 +33,38 @@ helm upgrade --install kubearmor-operator kubearmor/kubearmor-operator -n kubear
 kubectl apply -f https://raw.githubusercontent.com/kubearmor/KubeArmor/main/pkg/KubeArmorOperator/config/samples/sample-config.yml
 ```
 
-No node changes. No container runtime swap. Full walkthrough in the
-[deployment guide](getting-started/deployment_guide.md).
+You do not need to change your nodes or swap the container runtime. The
+[deployment guide](getting-started/deployment_guide.md) has the full walkthrough.
 
 ## Architecture
 
-One non-privileged DaemonSet pod per node. The daemon turns policy into kernel rules, and the
-enforcer loads them through whichever LSM the node runs.
+KubeArmor runs as a DaemonSet, one pod per node, without privileged access to the host. It reads
+your policy and loads the matching rules through whichever LSM that node happens to have.
 
-<img src=".gitbook/assets/diagrams/fig1-architecture.svg" alt="KubeArmor components. The control plane supplies policy custom resources, the operator with its snitch job, and the controller. On each node one DaemonSet pod runs the daemon, system monitor, runtime enforcer, and log feeder. The enforcer loads rules into kernel LSM hooks, which allow or deny each syscall inline. A dashed path copies events upward for telemetry only. The log feeder streams to the karmor CLI, the relay server, and downstream sinks." width="100%">
+<img src=".gitbook/assets/diagrams/fig1-architecture.svg" alt="Three steps. You write a Kubernetes policy. KubeArmor runs one pod per node and turns that policy into kernel rules. The kernel checks every exec, file and network call at an LSM hook, so allowed calls go through and blocked calls return Permission denied. A copy of each event leaves separately as logs and alerts." width="100%">
 
-Two things leave that flow, and the difference matters:
+The orange path is the enforcement decision, taken at the LSM hook on the call the workload just
+made. The dashed blue path is a copy of the same event, sent out as logs and alerts. If your cluster
+gets busy and drops some of those events, you lose log lines and nothing else, because enforcement
+never waits on userspace for an answer.
 
-- **Orange is the decision.** It happens at the LSM hook, in kernel space, on the call the workload
-  just made.
-- **Dashed blue is a copy of the event**, for telemetry only. A dropped event costs you a log line.
-  It never weakens enforcement, because enforcement never waits for userspace.
-
-Container identity comes from the runtime, through the CRI socket today and through
-[OCI hooks](https://kubearmor.io/blog/kubearmor-oci-hooks-container-security) in newer deployments.
-OCI hooks remove the last privileged mount from the install.
+KubeArmor learns which container a process belongs to from the container runtime, over the CRI socket
+today or over [OCI hooks](https://kubearmor.io/blog/kubearmor-oci-hooks-container-security) on newer
+setups. OCI hooks let you drop the runtime socket mount.
 
 ## Where the decision happens
 
-Falco, Tetragon, and KubeArmor all see the same syscall. They act at different points on the same
-timeline.
+Falco, Tetragon, and KubeArmor all see the same syscall. What differs is when they get to act on
+it.
 
-<img src=".gitbook/assets/diagrams/fig2-decision-point.svg" alt="Two timelines for the same syscall. In the detect and respond model the syscall completes, a probe copies the event, a userspace engine matches a rule, and a kill or quarantine response lands milliseconds to minutes later, by which time the data is read or gone. In the inline model the LSM hook checks the rule inside the same syscall, which returns Permission denied, so nothing ran." width="100%">
+<img src=".gitbook/assets/diagrams/fig2-decision-point.svg" alt="Two ways to handle the same call. Detect and respond lets the action run, ships the event to userspace, then sends a kill signal, by which time the file is already read, moved or deleted. KubeArmor checks the rule in the kernel, the call returns Permission denied, and nothing ran." width="100%">
 
-The upper path needs three steps to finish. An attacker breaks it two ways: flood the event buffer
-so the event never ships, or just finish the job first. Ransomware deletes a file in milliseconds.
+The top row has to get through three steps before anything happens to the attacker, and you can
+break it at any of them. Flood the ring buffer and the event never reaches userspace. Or simply
+finish the job first, since deleting a file takes a couple of milliseconds and a response takes far
+longer than that.
 
-The lower path has no steps to break.
+The bottom row is one step, and it runs in the kernel.
 
 ## How KubeArmor compares
 
@@ -77,7 +78,7 @@ The lower path has no steps to break.
 | gVisor | syscall interception in a guest kernel | ✅ | ✅ | ✅ | ❌ | High |
 | Prisma Defender | runC shim replacement | ✅ | ✅ | ✅ | ⚠️ | High |
 
-Three things explain that table:
+A few notes on those columns:
 
 - **eBPF observes, LSMs enforce.** kprobes and tracepoints report an event. They cannot reject a
   syscall. `bpf_override_return()` can, but its own man page warns of security implications, and it
@@ -88,14 +89,16 @@ Three things explain that table:
 - **No host change, no runC swap.** Engines that replace the runtime binary cannot install on
   Bottlerocket, Talos, or GKE COS without manual node work.
 
-Source: *Container Runtime Security, Comparative Insights, 2025 Edition* (Rahul Jadhav). Longer
-version: [differentiation](getting-started/differentiation.md).
+The table comes from *Container Runtime Security, Comparative Insights, 2025 Edition* by Rahul
+Jadhav. For the longer argument, read [differentiation](getting-started/differentiation.md).
 
 ## Recent attacks, and the policy that stops them
 
-Five campaigns, five write-ups, one shared chain. KubeArmor puts a gate at three steps of it.
+All five of these are public 2025 write-ups. The entry points differ, but what the attacker does
+next repeats: run a payload, read a secret, then talk to a host you never approved. You can put a
+policy in front of any of those steps.
 
-<img src=".gitbook/assets/diagrams/fig4-attack-chain.svg" alt="The five stages every recent container attack walks through: initial access, run the payload, harvest secrets, spread or exfiltrate, and impact. Three KubeArmor policy gates cut the chain. An allow-list on process execution stops the payload from starting, denied reads on secret paths stop credential harvesting, and denied unlisted egress stops spread and exfiltration. Five published 2025 campaigns are mapped to the gate that stops each one." width="100%">
+<img src=".gitbook/assets/diagrams/fig4-attack-chain.svg" alt="Four steps every recent container attack goes through: get in, run a payload, steal secrets, then spread or exfiltrate. KubeArmor policy cuts three of them. An allow-list stops the payload, denied reads on secret paths stop the theft, and denied egress stops the traffic back to the attacker." width="100%">
 
 | Attack | What happened | Where KubeArmor cuts the chain |
 |---|---|---|
@@ -105,19 +108,19 @@ Five campaigns, five write-ups, one shared chain. KubeArmor puts a gate at three
 | **Dero miner in containers**<br>2025 | Attackers reached exposed Docker APIs, then a worm installed `masscan` and a Docker client inside running containers to spread. [Securelist](https://securelist.com/dero-miner-infects-containers-through-docker-api/116546/) | Deny `apt`, `apk`, `yum`. Deny `docker` and `kubectl` binaries in workload pods. Deny access to `/var/run/docker.sock`. |
 | **nullifAI models**<br>Hugging Face, Feb 2025 | Two models carried pickle payloads that opened a reverse shell on load. The platform scanner did not flag them. [ReversingLabs](https://www.reversinglabs.com/blog/rl-identifies-malware-ml-model-hosted-on-hugging-face) | Sandbox the inference pod. Allow only the Python binary. Deny shell spawn, raw sockets, and unlisted egress. |
 
-Every cell in the last column is a policy line, not a detection rule.
-[policy-templates](https://github.com/kubearmor/policy-templates) ships them, and `karmor recommend`
-generates them per workload. MITRE and CIS mapping:
-[hardening guide](getting-started/hardening_guide.md).
+Everything in that last column is a policy you can apply today.
+[policy-templates](https://github.com/kubearmor/policy-templates) has them written already, and
+`karmor recommend` will generate them for a workload you point it at. The MITRE and CIS mapping lives
+in the [hardening guide](getting-started/hardening_guide.md).
 
 ## Sandboxing AI agents
 
-An agent is a process with tools. Guardrails read the prompt and the answer. They do not stop the
-command the agent runs once a prompt injection works.
-[ModelArmor](https://docs.kubearmor.io/kubearmor/use-cases/modelarmor) uses KubeArmor to bound that
-process.
+An agent is a process that runs commands on your behalf. Guardrails check the prompt and the
+answer, which does nothing about the shell command the agent runs after somebody talks it into one.
+[ModelArmor](https://docs.kubearmor.io/kubearmor/use-cases/modelarmor) uses KubeArmor to fence in
+that process.
 
-<img src=".gitbook/assets/diagrams/fig3-agent-sandbox.svg" alt="An agent process inside a pod. One allowed edge runs the listed interpreter and reads the application directory. Four attempted edges hit the KubeArmor policy gate and are denied in kernel space: spawning a shell or network scanner, reading cloud credentials and the service account token, opening a raw socket to an unlisted host, and writing then executing a script in slash tmp." width="100%">
+<img src=".gitbook/assets/diagrams/fig3-agent-sandbox.svg" alt="An AI agent in a sandboxed pod. Policy lets it run the app process and read its own files. Policy denies spawning a shell or scanner, reading credentials and tokens, and opening a socket or writing then running a script in slash tmp." width="100%">
 
 | Risk | What the attacker gets | Policy control |
 |---|---|---|
@@ -126,8 +129,9 @@ process.
 | Model supply chain payload | a pickle load opens a reverse shell | Deny raw sockets and unlisted egress from the model pod. |
 | Persistence in the sandbox | writes a script to `/tmp`, then runs it | Deny write plus exec on writable directories. |
 
-Works with any language runtime or AI framework, including tool-calling agents, MCP servers, and
-inference servers such as NVIDIA NIM. No application change, and no MicroVM.
+This works for any language runtime or AI framework, tool-calling agents, MCP servers, and
+inference servers such as NVIDIA NIM included. You do not touch the application, and you do not need
+a MicroVM for each workload.
 
 - [ModelArmor overview](https://docs.kubearmor.io/kubearmor/use-cases/modelarmor)
 - [Pickle code injection PoC](https://docs.kubearmor.io/kubearmor/use-cases/modelarmor/modelarmor-pickle-code)
@@ -135,18 +139,20 @@ inference servers such as NVIDIA NIM. No application change, and no MicroVM.
 
 ## Performance
 
-Enforcement runs in the kernel, so the decision costs no context switch. Measured on 4-node AKS,
-DS2_v2, sock-shop, Apache Bench at 50,000 requests and 5,000 concurrent:
+The check happens in the kernel, so there is no trip to userspace on every call. These numbers come
+from a 4-node AKS cluster on DS2_v2 nodes, running sock-shop under Apache Bench at 50,000 requests
+and 5,000 concurrent:
 
 | Case | Throughput (req/s) | Latency (ms) | KubeArmor CPU | KubeArmor memory | Failed requests |
 |---|:-:|:-:|:-:|:-:|:-:|
-| No KubeArmor | 2205.5 | 0.4534 | — | — | 0 |
+| No KubeArmor | 2205.5 | 0.4534 | n/a | n/a | 0 |
 | KubeArmor + policies (AppArmor) | 2169.4 | 0.4609 | 141 m | 112 Mi | 0 |
 
-A 1.6% throughput cost for one node agent at roughly 0.14 cores.
+That is a 1.6% hit on throughput. The agent itself costs about 0.14 cores and 112 Mi per node.
 
-> Numbers are from the [March 2023 benchmark run](https://kubearmor.io/blog/KubeArmor-Performance-Benchmarking-Data)
-> on the v1.0 line, including the BPF-LSM tables. A current-release re-run is open work.
+> These are from the [March 2023 benchmark run](https://kubearmor.io/blog/KubeArmor-Performance-Benchmarking-Data)
+> on the v1.0 line, which also has the BPF-LSM tables. Somebody should re-run it on a current
+> release.
 
 ## Documentation 📓
 
@@ -245,7 +251,7 @@ community subprojects are classified.
 
 | Repository | What it is |
 |---|---|
-| [k8tls](https://github.com/kubearmor/k8tls) | (Pronounced *cattles*) — assesses server port security by detecting TLS and certificate configuration. |
+| [k8tls](https://github.com/kubearmor/k8tls) | (Pronounced *cattles*). Assesses server port security by detecting TLS and certificate configuration. |
 | [modelarmor](https://github.com/kubearmor/modelarmor) | ML and AI workload security, including the pickle-injection PoC and adversarial-attack demos. |
 | [kvm-service](https://github.com/kubearmor/kvm-service) | Service for orchestrating KubeArmor policies to VMs and bare-metal hosts via either a Kubernetes or non-Kubernetes control plane. |
 | [libbpf](https://github.com/kubearmor/libbpf) | Go eBPF helper library based on the upstream libbpf API. |
@@ -254,8 +260,8 @@ community subprojects are classified.
 <!--
 TODO: Confirm classification of each repository as **core subproject** (governed by this repo's GOVERNANCE.md, CODEOWNERS subset of Maintainers) versus **community subproject** (own MAINTAINERS file, autonomous on technical decisions but bound by CoC and vendor-neutrality clauses). This is CNCF DD blocker F.
 
-Also, the following repositories have not been pushed to in over 12 months and may be candidates for archiving — confirm with Maintainers before next release:
+Also, the following repositories have not been pushed to in over 12 months and may be candidates for archiving. Confirm with Maintainers before the next release:
   artefacts, certified-operators, marketplace-kubernetes, minikube, kubearmor.github.io, openhorizon-demo (already archived), test-enterprise-gha, runtime-security-best-practices, log4j-CVE-2021-44228, kastore, koach, KubeArmor-demo (last push 2023), tag-security, kubearmor-relay-server-KA (looks duplicated).
 -->
 
-This list is generated iteratively — open a pull request to add a new repository or correct a description.
+This list grows by hand, so open a pull request to add a repository or fix a description.

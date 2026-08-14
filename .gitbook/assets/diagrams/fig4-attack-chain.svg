@@ -71,7 +71,7 @@
       <polyline points="718,148 718,156 834,156 834,164"/>
     </g>
 
-    <text x="30" y="270" font-size="12.5" font-weight="650" fill="#B23A0B">Cut any one step and the attack stops.</text>
-    <text x="30" y="288" font-size="12" fill="#4A555B">The table below maps five published 2025 campaigns onto these same steps.</text>
+    <text x="30" y="270" font-size="12.5" font-weight="650" fill="#B23A0B">Cut any one of these steps and the attack stops here.</text>
+    <text x="30" y="288" font-size="12" fill="#4A555B">The table below walks five published 2025 campaigns through these same steps.</text>
   </g>
 </svg>

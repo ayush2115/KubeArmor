@@ -33,7 +33,7 @@
     <g color="#35617A"><use href="#ic-policy" x="48" y="64"/></g>
     <text x="76" y="78" font-size="14" font-weight="650" fill="#14181C">1. You write a policy</text>
     <text x="48" y="103" font-size="12" fill="#4A555B">Plain Kubernetes YAML. Allow these</text>
-    <text x="48" y="120" font-size="12" fill="#4A555B">actions, deny or audit the rest.</text>
+    <text x="48" y="120" font-size="12" fill="#4A555B">actions, then deny or audit the rest.</text>
 
     <!-- step 2 -->
     <rect x="346" y="46" width="256" height="86" rx="5" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.6"/>
@@ -83,7 +83,7 @@
 
     <!-- the point -->
     <line x1="30" y1="292" x2="930" y2="292" stroke="#D8DFDC" stroke-width="1"/>
-    <text x="30" y="318" font-size="13" font-weight="650" fill="#B23A0B">The decision happens in the kernel, before the action completes.</text>
-    <text x="30" y="338" font-size="12" fill="#4A555B">Nothing runs first. No node changes, no container runtime swap, and a dropped log line never weakens enforcement.</text>
+    <text x="30" y="318" font-size="13" font-weight="650" fill="#B23A0B">The kernel decides before the action completes, so the process never starts.</text>
+    <text x="30" y="338" font-size="12" fill="#4A555B">You do not change your nodes, and you do not swap the container runtime. Losing a log line under load does not weaken enforcement.</text>
   </g>
 </svg>
