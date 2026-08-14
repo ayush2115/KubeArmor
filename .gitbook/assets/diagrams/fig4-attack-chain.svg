@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 452" width="1060" height="452" role="img" aria-label="The five stages every recent container attack walks through: initial access, run the payload, harvest secrets, spread or exfiltrate, and impact. Three KubeArmor policy gates cut the chain. An allow-list on process execution stops the payload from starting, denied reads on secret paths stop credential harvesting, and denied unlisted egress stops spread and exfiltration. Five published 2025 campaigns are mapped to the gate that stops each one.">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 1L9 5L0 9z" fill="currentColor"/>
+    </marker>
+    <g id="ic-door" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M3.4 2.2h11.2v13.6H3.4z"/><path d="M7 2.2v13.6"/><circle cx="10.4" cy="9" r="0.9"/>
+    </g>
+    <g id="ic-bolt" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+      <path d="M10.4 1.5L4 10h4.2l-1.3 6.5L14 8H9.4z"/>
+    </g>
+    <g id="ic-key" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+      <circle cx="5.6" cy="9" r="3.1"/><path d="M8.7 9h7.4M13.2 9v3M15.4 9v2.2"/>
+    </g>
+    <g id="ic-spread" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+      <circle cx="4" cy="9" r="2.1"/><circle cx="14" cy="4.4" r="2.1"/><circle cx="14" cy="13.6" r="2.1"/>
+      <path d="M6 8.1l6-3M6 9.9l6 3"/>
+    </g>
+    <g id="ic-alert" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M9 2.2l7 13.6H2z"/><path d="M9 7v4.2M9 13.2v.9"/>
+    </g>
+    <g id="ic-deny" fill="none" stroke="currentColor" stroke-width="1.8">
+      <circle cx="9" cy="9" r="6.6"/><path d="M4.4 13.6L13.6 4.4"/>
+    </g>
+    <g id="ic-shield" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+      <path d="M9 1.8l6 2.2v5c0 4-2.6 6.6-6 7.8-3.4-1.2-6-3.8-6-7.8v-5z"/><path d="M6.3 9.2l2 2 3.4-3.6"/>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="1060" height="452" fill="#FFFFFF"/>
+
+  <g font-family="ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+
+    <text x="28" y="30" font-family="ui-monospace, Consolas, monospace" font-size="10.5" letter-spacing="1.4" fill="#7A868C">THE CHAIN EVERY RECENT CAMPAIGN WALKS THROUGH</text>
+
+    <!-- stages -->
+    <rect x="28" y="46" width="186" height="66" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#4A555B"><use href="#ic-door" x="42" y="64"/></g>
+    <text x="70" y="71" font-size="12.5" font-weight="600" fill="#14181C">1. Initial access</text>
+    <text x="42" y="92" font-size="10.5" fill="#7A868C">an RCE, an exposed API,</text>
+    <text x="42" y="105" font-size="10.5" fill="#7A868C">or a poisoned package</text>
+
+    <rect x="234" y="46" width="186" height="66" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#4A555B"><use href="#ic-bolt" x="248" y="64"/></g>
+    <text x="276" y="71" font-size="12.5" font-weight="600" fill="#14181C">2. Run the payload</text>
+    <text x="248" y="92" font-size="10.5" fill="#7A868C">a shell, a scanner,</text>
+    <text x="248" y="105" font-size="10.5" fill="#7A868C">a miner, a package install</text>
+
+    <rect x="440" y="46" width="186" height="66" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#4A555B"><use href="#ic-key" x="454" y="64"/></g>
+    <text x="482" y="71" font-size="12.5" font-weight="600" fill="#14181C">3. Harvest secrets</text>
+    <text x="454" y="92" font-size="10.5" fill="#7A868C">service account token,</text>
+    <text x="454" y="105" font-size="10.5" fill="#7A868C">cloud keys, SSH keys</text>
+
+    <rect x="646" y="46" width="186" height="66" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#4A555B"><use href="#ic-spread" x="660" y="64"/></g>
+    <text x="688" y="71" font-size="12.5" font-weight="600" fill="#14181C">4. Spread, exfiltrate</text>
+    <text x="660" y="92" font-size="10.5" fill="#7A868C">C2 traffic, a public repo,</text>
+    <text x="660" y="105" font-size="10.5" fill="#7A868C">the next container</text>
+
+    <rect x="852" y="46" width="186" height="66" rx="4" fill="#FDF3ED" stroke="#B23A0B" stroke-width="1.6"/>
+    <g color="#B23A0B"><use href="#ic-alert" x="866" y="64"/></g>
+    <text x="894" y="71" font-size="12.5" font-weight="600" fill="#14181C">5. Impact</text>
+    <text x="866" y="92" font-size="10.5" fill="#7A868C">stolen data, mined coins,</text>
+    <text x="866" y="105" font-size="10.5" fill="#7A868C">a wiped home directory</text>
+
+    <g color="#4A555B" stroke="#4A555B" stroke-width="1.4" fill="none">
+      <line x1="214" y1="79" x2="234" y2="79" marker-end="url(#arw)"/>
+      <line x1="420" y1="79" x2="440" y2="79" marker-end="url(#arw)"/>
+      <line x1="626" y1="79" x2="646" y2="79" marker-end="url(#arw)"/>
+      <line x1="832" y1="79" x2="852" y2="79" marker-end="url(#arw)"/>
+    </g>
+
+    <!-- gates -->
+    <g stroke="#B23A0B" stroke-width="2.2">
+      <line x1="224" y1="38" x2="224" y2="132"/>
+      <line x1="430" y1="38" x2="430" y2="132"/>
+      <line x1="636" y1="38" x2="636" y2="132"/>
+    </g>
+    <g color="#B23A0B">
+      <use href="#ic-deny" x="215" y="136"/>
+      <use href="#ic-deny" x="421" y="136"/>
+      <use href="#ic-deny" x="627" y="136"/>
+    </g>
+
+    <g font-size="10" font-weight="650" letter-spacing="0.8" fill="#B23A0B" text-anchor="middle">
+      <text x="224" y="167">GATE 2</text>
+      <text x="430" y="167">GATE 3</text>
+      <text x="636" y="167">GATE 4</text>
+    </g>
+
+    <!-- policy cards -->
+    <rect x="234" y="168" width="186" height="86" rx="4" fill="#FDF3ED" stroke="#B23A0B" stroke-width="1.4"/>
+    <text x="248" y="190" font-size="11.5" font-weight="650" fill="#B23A0B">Allow-list process exec</text>
+    <text x="248" y="209" font-size="10.5" fill="#4A555B">Only listed binaries start.</text>
+    <text x="248" y="223" font-size="10.5" fill="#4A555B">apt, apk, curl, nmap, the</text>
+    <text x="248" y="237" font-size="10.5" fill="#4A555B">miner and the shell never</text>
+    <text x="248" y="248" font-size="10.5" fill="#4A555B">execute.</text>
+
+    <rect x="440" y="168" width="186" height="86" rx="4" fill="#FDF3ED" stroke="#B23A0B" stroke-width="1.4"/>
+    <text x="454" y="190" font-size="11.5" font-weight="650" fill="#B23A0B">Deny reads on secrets</text>
+    <text x="454" y="209" font-size="10.5" fill="#4A555B">The service account token,</text>
+    <text x="454" y="223" font-size="10.5" fill="#4A555B">/root/.aws/credentials and</text>
+    <text x="454" y="237" font-size="10.5" fill="#4A555B">SSH keys return</text>
+    <text x="454" y="248" font-size="10.5" fill="#4A555B">Permission denied.</text>
+
+    <rect x="646" y="168" width="186" height="86" rx="4" fill="#FDF3ED" stroke="#B23A0B" stroke-width="1.4"/>
+    <text x="660" y="190" font-size="11.5" font-weight="650" fill="#B23A0B">Deny unlisted egress</text>
+    <text x="660" y="209" font-size="10.5" fill="#4A555B">No raw sockets, no traffic</text>
+    <text x="660" y="223" font-size="10.5" fill="#4A555B">outside the allowed set, no</text>
+    <text x="660" y="237" font-size="10.5" fill="#4A555B">writes outside the</text>
+    <text x="660" y="248" font-size="10.5" fill="#4A555B">workspace.</text>
+
+    <g stroke="#B23A0B" stroke-width="1.4" stroke-dasharray="4 4">
+      <line x1="327" y1="152" x2="327" y2="168"/>
+      <line x1="533" y1="152" x2="533" y2="168"/>
+      <line x1="739" y1="152" x2="739" y2="168"/>
+    </g>
+
+    <line x1="28" y1="284" x2="1032" y2="284" stroke="#D8DFDC" stroke-width="1"/>
+
+    <!-- campaigns -->
+    <text x="28" y="312" font-family="ui-monospace, Consolas, monospace" font-size="10.5" letter-spacing="1.4" fill="#7A868C">FIVE PUBLISHED 2025 CAMPAIGNS, AND THE GATE THAT STOPS EACH ONE</text>
+
+    <rect x="28" y="328" width="186" height="74" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <text x="42" y="350" font-size="11.5" font-weight="600" fill="#14181C">React2Shell</text>
+    <text x="42" y="365" font-size="10" fill="#7A868C">CVE-2025-55182, Dec 2025</text>
+    <text x="42" y="386" font-size="10.5" font-weight="650" fill="#B23A0B">stopped at gate 2 and 3</text>
+
+    <rect x="234" y="328" width="186" height="74" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <text x="248" y="350" font-size="11.5" font-weight="600" fill="#14181C">Shai-Hulud npm worm</text>
+    <text x="248" y="365" font-size="10" fill="#7A868C">Sep and Nov 2025</text>
+    <text x="248" y="386" font-size="10.5" font-weight="650" fill="#B23A0B">stopped at gate 3 and 4</text>
+
+    <rect x="440" y="328" width="186" height="74" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <text x="454" y="350" font-size="11.5" font-weight="600" fill="#14181C">IngressNightmare</text>
+    <text x="454" y="365" font-size="10" fill="#7A868C">CVE-2025-1974, Mar 2025</text>
+    <text x="454" y="386" font-size="10.5" font-weight="650" fill="#B23A0B">stopped at gate 2</text>
+
+    <rect x="646" y="328" width="186" height="74" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <text x="660" y="350" font-size="11.5" font-weight="600" fill="#14181C">Dero miner in containers</text>
+    <text x="660" y="365" font-size="10" fill="#7A868C">via exposed Docker API, 2025</text>
+    <text x="660" y="386" font-size="10.5" font-weight="650" fill="#B23A0B">stopped at gate 2</text>
+
+    <rect x="852" y="328" width="186" height="74" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <text x="866" y="350" font-size="11.5" font-weight="600" fill="#14181C">nullifAI models</text>
+    <text x="866" y="365" font-size="10" fill="#7A868C">Hugging Face, Feb 2025</text>
+    <text x="866" y="386" font-size="10.5" font-weight="650" fill="#B23A0B">stopped at gate 4</text>
+
+    <g color="#2F5A72"><use href="#ic-shield" x="28" y="424"/></g>
+    <text x="56" y="437" font-size="11" fill="#4A555B">Every gate is a policy line, not a detection rule. karmor recommend generates them per workload, and policy-templates ships them ready to apply.</text>
+  </g>
+</svg>

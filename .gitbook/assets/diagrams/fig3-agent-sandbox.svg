@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 420" width="1060" height="420" role="img" aria-label="An agent process inside a pod. One allowed edge runs the listed interpreter and reads the application directory. Four attempted edges hit the KubeArmor policy gate and are denied in the kernel: spawning a shell or network scanner, reading cloud credentials and the service account token, opening a raw socket to an unlisted host, and writing then executing a script in slash tmp.">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 1L9 5L0 9z" fill="currentColor"/>
+    </marker>
+    <g id="ic-robot" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+      <rect x="3" y="6" width="12" height="9.4" rx="2.2"/><path d="M9 3.4v2.6"/><circle cx="9" cy="2.3" r="1.1"/>
+      <circle cx="6.6" cy="10.4" r="1"/><circle cx="11.4" cy="10.4" r="1"/>
+    </g>
+    <g id="ic-terminal" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+      <rect x="1.8" y="3" width="14.4" height="12" rx="1.6"/><path d="M4.9 7.6l2.4 2.4-2.4 2.4M9.2 12.4h4"/>
+    </g>
+    <g id="ic-key" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+      <circle cx="5.6" cy="9" r="3.1"/><path d="M8.7 9h7.4M13.2 9v3M15.4 9v2.2"/>
+    </g>
+    <g id="ic-globe" fill="none" stroke="currentColor" stroke-width="1.4">
+      <circle cx="9" cy="9" r="6.8"/><path d="M2.2 9h13.6M9 2.2c3.3 3.6 3.3 10.4 0 13.6M9 2.2c-3.3 3.6-3.3 10.4 0 13.6"/>
+    </g>
+    <g id="ic-folder" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+      <path d="M2.2 5h4.9l1.7 2.2H15.8V14.4H2.2z"/>
+    </g>
+    <g id="ic-file" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M3.4 1.8h7.2l4 4v10.4H3.4z"/><path d="M10.6 1.8v4h4"/><path d="M6 9.6h6M6 12.4h6"/>
+    </g>
+    <g id="ic-deny" fill="none" stroke="currentColor" stroke-width="1.6">
+      <circle cx="9" cy="9" r="6.6"/><path d="M4.4 13.6L13.6 4.4"/>
+    </g>
+    <g id="ic-check" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="9" r="6.6"/><path d="M5.6 9.2l2.4 2.4 4.4-4.8"/>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="1060" height="420" fill="#FFFFFF"/>
+
+  <g font-family="ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+
+    <text x="28" y="30" font-family="ui-monospace, Consolas, monospace" font-size="10.5" letter-spacing="1.4" fill="#7A868C">SANDBOXED POD</text>
+    <text x="1032" y="30" text-anchor="end" font-family="ui-monospace, Consolas, monospace" font-size="10.5" letter-spacing="1.4" fill="#7A868C">WHAT THE AGENT TRIES TO REACH</text>
+
+    <!-- agent -->
+    <rect x="28" y="150" width="236" height="96" rx="4" fill="#FDF3ED" stroke="#B23A0B" stroke-width="1.8"/>
+    <g color="#B23A0B"><use href="#ic-robot" x="44" y="170"/></g>
+    <text x="72" y="177" font-size="13" font-weight="600" fill="#14181C">Agent or model process</text>
+    <text x="44" y="200" font-size="10.5" fill="#7A868C">an LLM agent, an MCP server or an</text>
+    <text x="44" y="214" font-size="10.5" fill="#7A868C">inference server. It is a process with</text>
+    <text x="44" y="228" font-size="10.5" fill="#7A868C">tools, so it is a process you can bound.</text>
+
+    <!-- policy gate -->
+    <rect x="470" y="52" width="16" height="330" rx="3" fill="#FDF3ED" stroke="#B23A0B" stroke-width="1.6"/>
+    <text x="478" y="42" text-anchor="middle" font-size="11.5" font-weight="650" fill="#B23A0B">KubeArmor policy, deny by default</text>
+    <text x="478" y="402" text-anchor="middle" font-size="10.5" font-weight="650" letter-spacing="1.2" fill="#B23A0B">DENIED IN KERNEL SPACE</text>
+
+    <!-- allowed row -->
+    <rect x="560" y="56" width="472" height="52" rx="4" fill="#F0F5F7" stroke="#2F5A72" stroke-width="1.6"/>
+    <g color="#2F5A72"><use href="#ic-terminal" x="576" y="73"/></g>
+    <text x="604" y="80" font-size="12.5" font-weight="600" fill="#14181C">The listed interpreter, and the application directory</text>
+    <text x="576" y="99" font-size="10.5" fill="#7A868C">the one exec path and the one read path the workload actually needs</text>
+    <g color="#2F5A72"><use href="#ic-check" x="1000" y="73"/></g>
+
+    <!-- denied rows -->
+    <rect x="560" y="124" width="472" height="52" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#4A555B"><use href="#ic-terminal" x="576" y="141"/></g>
+    <text x="604" y="148" font-size="12.5" font-weight="600" fill="#14181C">A shell, curl, nmap, apk add</text>
+    <text x="576" y="167" font-size="10.5" fill="#7A868C">prompt injection turns into a command, and guardrails never see it</text>
+    <g color="#B23A0B"><use href="#ic-deny" x="1000" y="141"/></g>
+
+    <rect x="560" y="192" width="472" height="52" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#4A555B"><use href="#ic-key" x="576" y="209"/></g>
+    <text x="604" y="216" font-size="12.5" font-weight="600" fill="#14181C">Credentials and tokens</text>
+    <text x="576" y="235" font-size="10.5" fill="#7A868C">/root/.aws/credentials, the mounted service account token</text>
+    <g color="#B23A0B"><use href="#ic-deny" x="1000" y="209"/></g>
+
+    <rect x="560" y="260" width="472" height="52" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#4A555B"><use href="#ic-globe" x="576" y="277"/></g>
+    <text x="604" y="284" font-size="12.5" font-weight="600" fill="#14181C">A raw socket, or unlisted egress</text>
+    <text x="576" y="303" font-size="10.5" fill="#7A868C">the reverse shell that a malicious pickle file opens on load</text>
+    <g color="#B23A0B"><use href="#ic-deny" x="1000" y="277"/></g>
+
+    <rect x="560" y="328" width="472" height="52" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#4A555B"><use href="#ic-folder" x="576" y="345"/></g>
+    <text x="604" y="352" font-size="12.5" font-weight="600" fill="#14181C">Write a script to /tmp, then run it</text>
+    <text x="576" y="371" font-size="10.5" fill="#7A868C">persistence inside the sandbox, and the Keras Lambda layer trick</text>
+    <g color="#B23A0B"><use href="#ic-deny" x="1000" y="345"/></g>
+
+    <!-- edges -->
+    <g color="#2F5A72" stroke="#2F5A72" stroke-width="1.6" fill="none">
+      <polyline points="264,170 380,170 380,82 470,82" marker-end="url(#arw)"/>
+    </g>
+    <text x="388" y="70" font-size="11" fill="#2F5A72">allowed</text>
+
+    <g color="#4A555B" stroke="#4A555B" stroke-width="1.4" fill="none">
+      <polyline points="264,186 410,186 410,150 470,150" marker-end="url(#arw)"/>
+      <line x1="264" y1="218" x2="470" y2="218" marker-end="url(#arw)"/>
+      <polyline points="264,224 410,224 410,286 470,286" marker-end="url(#arw)"/>
+      <polyline points="264,234 392,234 392,354 470,354" marker-end="url(#arw)"/>
+    </g>
+    <text x="300" y="211" font-size="11" fill="#4A555B">four attempts, four policy lines</text>
+
+    <!-- footnote -->
+    <text x="28" y="290" font-size="11" fill="#4A555B">No application change.</text>
+    <text x="28" y="308" font-size="11" fill="#4A555B">No MicroVM, and no</text>
+    <text x="28" y="326" font-size="11" fill="#4A555B">code review needed for</text>
+    <text x="28" y="344" font-size="11" fill="#4A555B">the model you imported.</text>
+    <text x="28" y="374" font-size="11" font-weight="650" fill="#B23A0B">ModelArmor writes these</text>
+    <text x="28" y="390" font-size="11" font-weight="650" fill="#B23A0B">policies for you.</text>
+  </g>
+</svg>

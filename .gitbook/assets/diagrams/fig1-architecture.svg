@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 626" width="1060" height="626" role="img" aria-label="KubeArmor components. The Kubernetes control plane supplies policy custom resources, the operator with its snitch job, and the controller. On each node one DaemonSet pod runs the daemon, system monitor, runtime enforcer, and log feeder. The enforcer loads rules into kernel LSM hooks, which allow or deny each syscall inline. A separate dashed path copies events upward for telemetry only. The log feeder streams to the karmor CLI, the relay server, and downstream sinks.">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 1L9 5L0 9z" fill="currentColor"/>
+    </marker>
+    <g id="ic-policy" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M3 1.5h8l4 4v11H3z"/><path d="M11 1.5v4h4"/><path d="M5.5 9.5h7M5.5 12.5h7"/>
+    </g>
+    <g id="ic-gear" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+      <circle cx="9" cy="9" r="3.2"/>
+      <path d="M9 1.5v2.2M9 14.3v2.2M1.5 9h2.2M14.3 9h2.2M3.7 3.7l1.6 1.6M12.7 12.7l1.6 1.6M14.3 3.7l-1.6 1.6M5.3 12.7l-1.6 1.6"/>
+    </g>
+    <g id="ic-tag" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+      <path d="M2.5 7.8V2.6h5.2l7.7 7.7-5.2 5.2z"/><circle cx="5.5" cy="5.6" r="1.1"/>
+    </g>
+    <g id="ic-core" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+      <path d="M9 1.6l6.4 3.7v7.4L9 16.4 2.6 12.7V5.3z"/><circle cx="9" cy="9" r="2.4"/>
+    </g>
+    <g id="ic-eye" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+      <path d="M1.5 9s2.8-4.6 7.5-4.6S16.5 9 16.5 9s-2.8 4.6-7.5 4.6S1.5 9 1.5 9z"/><circle cx="9" cy="9" r="2.1"/>
+    </g>
+    <g id="ic-shield" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+      <path d="M9 1.8l6 2.2v5c0 4-2.6 6.6-6 7.8-3.4-1.2-6-3.8-6-7.8v-5z"/><path d="M6.3 9.2l2 2 3.4-3.6"/>
+    </g>
+    <g id="ic-stream" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+      <path d="M2.5 5.5h13M2.5 9h13M2.5 12.5h9"/><circle cx="14.6" cy="12.5" r="1.4"/>
+    </g>
+    <g id="ic-chip" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+      <rect x="4.6" y="4.6" width="8.8" height="8.8" rx="1"/>
+      <path d="M7.4 1.6v3M10.6 1.6v3M7.4 13.4v3M10.6 13.4v3M1.6 7.4h3M1.6 10.6h3M13.4 7.4h3M13.4 10.6h3"/>
+    </g>
+    <g id="ic-cube" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+      <path d="M9 1.8l6.5 3.6v7.2L9 16.2 2.5 12.6V5.4z"/><path d="M2.5 5.4L9 9l6.5-3.6M9 9v7.2"/>
+    </g>
+    <g id="ic-terminal" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
+      <rect x="1.8" y="3" width="14.4" height="12" rx="1.6"/><path d="M4.9 7.6l2.4 2.4-2.4 2.4M9.2 12.4h4"/>
+    </g>
+    <g id="ic-relay" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+      <circle cx="9" cy="9" r="1.8"/>
+      <path d="M5.4 5.4a5.1 5.1 0 0 0 0 7.2M12.6 5.4a5.1 5.1 0 0 1 0 7.2M3 3a8.5 8.5 0 0 0 0 12M15 3a8.5 8.5 0 0 1 0 12"/>
+    </g>
+    <g id="ic-chart" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+      <path d="M2.5 15.5V9.4M6.8 15.5V4.6M11.2 15.5V7.6M15.5 15.5V6.4"/>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="1060" height="626" fill="#FFFFFF"/>
+
+  <!-- bands -->
+  <rect x="28" y="52" width="742" height="118" rx="6" fill="#EDF2F5" stroke="#CBD6D3"/>
+  <text x="42" y="72" font-family="ui-monospace, Consolas, monospace" font-size="10.5" letter-spacing="1.4" fill="#7A868C">KUBERNETES CONTROL PLANE</text>
+
+  <rect x="28" y="190" width="742" height="226" rx="6" fill="#EBF1EE" stroke="#CBD6D3"/>
+  <text x="756" y="210" text-anchor="end" font-family="ui-monospace, Consolas, monospace" font-size="10.5" letter-spacing="1.4" fill="#7A868C">WORKER NODE, ONE NON-PRIVILEGED DAEMONSET POD</text>
+
+  <rect x="28" y="436" width="742" height="132" rx="6" fill="#E6EBE9" stroke="#CBD6D3"/>
+  <text x="42" y="456" font-family="ui-monospace, Consolas, monospace" font-size="10.5" letter-spacing="1.4" fill="#7A868C">LINUX KERNEL</text>
+
+  <rect x="800" y="190" width="232" height="226" rx="6" fill="#F4F0EA" stroke="#D8CFC2"/>
+  <text x="814" y="210" font-family="ui-monospace, Consolas, monospace" font-size="10.5" letter-spacing="1.4" fill="#8A7F70">CONSUMERS</text>
+
+  <g font-family="ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+
+    <!-- control plane -->
+    <rect x="44" y="82" width="228" height="72" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#35617A"><use href="#ic-policy" x="58" y="100"/></g>
+    <text x="86" y="107" font-size="12.5" font-weight="600" fill="#14181C">Policy custom resources</text>
+    <text x="86" y="124" font-size="10.5" fill="#7A868C">KubeArmorPolicy, HostPolicy,</text>
+    <text x="86" y="138" font-size="10.5" fill="#7A868C">ClusterPolicy, NetworkPolicy</text>
+
+    <rect x="286" y="82" width="228" height="72" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#35617A"><use href="#ic-gear" x="300" y="100"/></g>
+    <text x="328" y="107" font-size="12.5" font-weight="600" fill="#14181C">KubeArmor Operator</text>
+    <text x="328" y="124" font-size="10.5" fill="#7A868C">with the snitch job, which</text>
+    <text x="328" y="138" font-size="10.5" fill="#7A868C">detects the LSM on each node</text>
+
+    <rect x="528" y="82" width="228" height="72" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#35617A"><use href="#ic-tag" x="542" y="100"/></g>
+    <text x="570" y="107" font-size="12.5" font-weight="600" fill="#14181C">KubeArmorController</text>
+    <text x="570" y="124" font-size="10.5" fill="#7A868C">admission webhook and</text>
+    <text x="570" y="138" font-size="10.5" fill="#7A868C">pod annotations</text>
+
+    <!-- node -->
+    <rect x="44" y="232" width="162" height="72" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#35617A"><use href="#ic-eye" x="58" y="248"/></g>
+    <text x="86" y="255" font-size="12.5" font-weight="600" fill="#14181C">System Monitor</text>
+    <text x="58" y="277" font-size="10.5" fill="#7A868C">eBPF programs for</text>
+    <text x="58" y="291" font-size="10.5" fill="#7A868C">process, file, network</text>
+
+    <rect x="256" y="232" width="288" height="72" rx="4" fill="#FDF3ED" stroke="#B23A0B" stroke-width="1.8"/>
+    <g color="#B23A0B"><use href="#ic-core" x="270" y="248"/></g>
+    <text x="298" y="255" font-size="12.5" font-weight="600" fill="#14181C">KubeArmor daemon</text>
+    <text x="270" y="277" font-size="10.5" fill="#7A868C">translates policy into kernel rules, maps every</text>
+    <text x="270" y="291" font-size="10.5" fill="#7A868C">event to a container or node identity</text>
+
+    <rect x="594" y="232" width="162" height="72" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#B23A0B"><use href="#ic-shield" x="608" y="248"/></g>
+    <text x="636" y="255" font-size="12.5" font-weight="600" fill="#14181C">Runtime Enforcer</text>
+    <text x="608" y="277" font-size="10.5" fill="#7A868C">picks BPF-LSM,</text>
+    <text x="608" y="291" font-size="10.5" fill="#7A868C">AppArmor or SELinux</text>
+
+    <rect x="256" y="344" width="288" height="56" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#35617A"><use href="#ic-stream" x="270" y="362"/></g>
+    <text x="298" y="369" font-size="12.5" font-weight="600" fill="#14181C">Log Feeder</text>
+    <text x="270" y="389" font-size="10.5" fill="#7A868C">gRPC stream of logs, alerts and policy violations</text>
+
+    <!-- kernel -->
+    <rect x="44" y="470" width="316" height="72" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#35617A"><use href="#ic-cube" x="58" y="488"/></g>
+    <text x="86" y="495" font-size="12.5" font-weight="600" fill="#14181C">Container and host processes</text>
+    <text x="58" y="517" font-size="10.5" fill="#7A868C">the workload you are protecting, unchanged</text>
+    <text x="58" y="531" font-size="10.5" fill="#7A868C">and unaware of the policy</text>
+
+    <rect x="440" y="470" width="316" height="72" rx="4" fill="#FDF3ED" stroke="#B23A0B" stroke-width="1.8"/>
+    <g color="#B23A0B"><use href="#ic-chip" x="454" y="488"/></g>
+    <text x="482" y="495" font-size="12.5" font-weight="600" fill="#14181C">LSM hooks</text>
+    <text x="454" y="517" font-size="10.5" fill="#7A868C">the decision point, inside kernel space,</text>
+    <text x="454" y="531" font-size="10.5" fill="#7A868C">on the same syscall the workload made</text>
+
+    <!-- consumers -->
+    <rect x="816" y="228" width="200" height="48" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#8A6A3B"><use href="#ic-terminal" x="830" y="243"/></g>
+    <text x="858" y="257" font-size="12.5" font-weight="600" fill="#14181C">karmor CLI</text>
+
+    <rect x="816" y="290" width="200" height="48" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#8A6A3B"><use href="#ic-relay" x="830" y="305"/></g>
+    <text x="858" y="319" font-size="12.5" font-weight="600" fill="#14181C">Relay server</text>
+
+    <rect x="816" y="352" width="200" height="48" rx="4" fill="#FFFFFF" stroke="#C7D1CE" stroke-width="1.4"/>
+    <g color="#8A6A3B"><use href="#ic-chart" x="830" y="367"/></g>
+    <text x="858" y="373" font-size="11.5" font-weight="600" fill="#14181C">Prometheus, OTel,</text>
+    <text x="858" y="388" font-size="11.5" font-weight="600" fill="#14181C">Kafka, Grafana, ELK</text>
+
+    <!-- neutral edges -->
+    <g color="#4A555B" stroke="#4A555B" stroke-width="1.4" fill="none">
+      <polyline points="158,154 158,204 304,204 304,232" marker-end="url(#arw)"/>
+      <polyline points="400,154 400,232" marker-end="url(#arw)"/>
+      <polyline points="642,154 642,204 496,204 496,232" marker-end="url(#arw)"/>
+      <line x1="206" y1="266" x2="256" y2="266" marker-end="url(#arw)"/>
+      <line x1="544" y1="266" x2="594" y2="266" marker-end="url(#arw)"/>
+      <line x1="400" y1="304" x2="400" y2="344" marker-end="url(#arw)"/>
+      <polyline points="544,372 790,372 790,252 816,252" marker-end="url(#arw)"/>
+      <line x1="790" y1="314" x2="816" y2="314" marker-end="url(#arw)"/>
+      <line x1="790" y1="376" x2="816" y2="376" marker-end="url(#arw)"/>
+      <line x1="360" y1="492" x2="440" y2="492" marker-end="url(#arw)"/>
+    </g>
+    <g font-size="11" fill="#4A555B">
+      <text x="164" y="222">policies</text>
+      <text x="406" y="222">installs, configures</text>
+      <text x="560" y="222">pod identity</text>
+      <text x="231" y="259" text-anchor="middle">events</text>
+      <text x="569" y="259" text-anchor="middle">rules</text>
+      <text x="408" y="328">logs, alerts</text>
+      <text x="612" y="364" text-anchor="middle">gRPC stream</text>
+      <text x="400" y="485" text-anchor="middle">syscall</text>
+    </g>
+
+    <!-- enforcement path -->
+    <g color="#B23A0B" stroke="#B23A0B" stroke-width="2.2" fill="none">
+      <line x1="675" y1="304" x2="675" y2="470" marker-end="url(#arw)"/>
+      <line x1="440" y1="524" x2="360" y2="524" marker-end="url(#arw)"/>
+    </g>
+    <g font-size="11" font-weight="650" fill="#B23A0B">
+      <text x="686" y="390">loads rules</text>
+      <text x="400" y="562" text-anchor="middle">allow or deny, inline</text>
+    </g>
+
+    <!-- telemetry path -->
+    <g color="#2F5A72" stroke="#2F5A72" stroke-width="1.4" fill="none" stroke-dasharray="5 4">
+      <polyline points="484,470 484,426 125,426 125,304" marker-end="url(#arw)"/>
+    </g>
+    <text x="310" y="420" font-size="11" fill="#2F5A72" text-anchor="middle">event copy, telemetry only</text>
+
+    <!-- legend -->
+    <g font-size="11" fill="#4A555B">
+      <line x1="44" y1="604" x2="74" y2="604" stroke="#B23A0B" stroke-width="2.2"/>
+      <text x="82" y="608">enforcement path, decides before the action completes</text>
+      <line x1="440" y1="604" x2="470" y2="604" stroke="#2F5A72" stroke-width="1.4" stroke-dasharray="5 4"/>
+      <text x="478" y="608">telemetry path, a lost event never weakens enforcement</text>
+    </g>
+  </g>
+</svg>
