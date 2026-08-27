@@ -20,6 +20,7 @@ jobs:
       go: ${{ steps.filter.outputs.go_any_changed }}
       ebpf: ${{ steps.filter.outputs.ebpf_any_changed }}
       codespell: ${{ steps.filter.outputs.codespell_any_changed }}
+      ciscripts: ${{ steps.filter.outputs.ciscripts_any_changed }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
@@ -44,6 +45,10 @@ jobs:
               - '.github/workflows/ci-test-network-tests.yml'
               - '.github/workflows/ci-test-controllers.yml'
               - '.github/workflows/ci-test-operator.yaml'
+            ciscripts:
+              - '.github/workflows/trivy-summarize.sh'
+              - '.github/workflows/trivy-report-issue.sh'
+              - '.github/workflows/tests/**'
             ebpf:
               - 'KubeArmor/BPF/**'
               - 'KubeArmor/enforcer/**/*.o'
@@ -72,6 +77,17 @@ jobs:
         uses: apache/skywalking-eyes@ed436a5593c63a25f394ea29da61b0ac3731a9fe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  ci-script-tests:
+    name: "CI Script Tests"
+    needs: [detect-changes]
+    if: ${{ needs.detect-changes.outputs.ciscripts == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Test the Trivy reporting scripts
+        run: ./.github/workflows/tests/trivy-scripts-test.sh
 
   codespell:
     name: "Spell Check"
