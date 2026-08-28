@@ -21,8 +21,8 @@ permissions: read-all
 jobs:
   build:
     name: Run trivy scan
-    if: github.repository == 'kubearmor/kubearmor'
-    runs-on: oracle-vm-16cpu-64gb-x86-64
+    if: github.repository == 'ayush2115/kubearmor'
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
     timeout-minutes: 150
@@ -116,9 +116,9 @@ jobs:
           format: 'table'
           output: 'trivy-reports/kubearmor-init.txt'
           exit-code: '1'
-          ignore-unfixed: true
+          ignore-unfixed: false
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW'
         continue-on-error: true 
 
       - name: Run Trivy vulnerability scanner on kubearmor
@@ -129,9 +129,9 @@ jobs:
           format: 'table'
           output: 'trivy-reports/kubearmor.txt'
           exit-code: '1'
-          ignore-unfixed: true
+          ignore-unfixed: false
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'   
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW'   
         continue-on-error: true  
 
       - name: Run Trivy vulnerability scanner on kubearmor-controller
@@ -143,9 +143,9 @@ jobs:
           format: 'table'
           output: 'trivy-reports/kubearmor-controller.txt'
           exit-code: '1'
-          ignore-unfixed: true
+          ignore-unfixed: false
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'   
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW'   
         continue-on-error: true 
 
       - name: Run Trivy vulnerability scanner on kubearmor-operator
@@ -157,9 +157,9 @@ jobs:
           format: 'table'
           output: 'trivy-reports/kubearmor-operator.txt'
           exit-code: '1'
-          ignore-unfixed: true
+          ignore-unfixed: false
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'   
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW'   
         continue-on-error: true 
 
 
