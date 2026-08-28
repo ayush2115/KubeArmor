@@ -224,3 +224,5 @@ jobs:
           TRIVY_SEVERITY: CRITICAL,HIGH
 
 # fork validation: old base images, PR-exact scan thresholds
+
+# retry: alpine 3.17 / ubi9-minimal 9.3

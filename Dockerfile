@@ -43,7 +43,7 @@ RUN CGO_ENABLED=0 go test -covermode=atomic -coverpkg=./... -c . -o kubearmor-te
 
 ### Make executable image
 
-FROM alpine:3.14 AS kubearmor
+FROM alpine:3.17 AS kubearmor
 
 RUN apk --no-cache update && \
     apk upgrade --no-cache libcrypto3 libssl3 zlib libexpat && \
@@ -74,7 +74,7 @@ ENTRYPOINT ["/KubeArmor/kubearmor-test"]
 
 ### Make UBI-based executable image
 
-FROM redhat/ubi8-minimal:latest AS kubearmor-ubi
+FROM redhat/ubi9-minimal:9.3 AS kubearmor-ubi
 
 ARG VERSION=latest
 ENV KUBEARMOR_UBI=true
@@ -111,7 +111,7 @@ USER 1000
 ENTRYPOINT ["/KubeArmor/kubearmor"]
 
 ### Make UBI-based test executable image for coverage calculation
-FROM redhat/ubi8-minimal:latest AS kubearmor-ubi-test
+FROM redhat/ubi9-minimal:9.3 AS kubearmor-ubi-test
 
 ARG VERSION=latest
 ENV KUBEARMOR_UBI=true
