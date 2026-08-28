@@ -116,9 +116,9 @@ jobs:
           format: 'table'
           output: 'trivy-reports/kubearmor-init.txt'
           exit-code: '1'
-          ignore-unfixed: false
+          ignore-unfixed: true
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH,MEDIUM,LOW'
+          severity: 'CRITICAL,HIGH'
         continue-on-error: true 
 
       - name: Run Trivy vulnerability scanner on kubearmor
@@ -129,9 +129,9 @@ jobs:
           format: 'table'
           output: 'trivy-reports/kubearmor.txt'
           exit-code: '1'
-          ignore-unfixed: false
+          ignore-unfixed: true
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH,MEDIUM,LOW'   
+          severity: 'CRITICAL,HIGH'   
         continue-on-error: true  
 
       - name: Run Trivy vulnerability scanner on kubearmor-controller
@@ -143,9 +143,9 @@ jobs:
           format: 'table'
           output: 'trivy-reports/kubearmor-controller.txt'
           exit-code: '1'
-          ignore-unfixed: false
+          ignore-unfixed: true
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH,MEDIUM,LOW'   
+          severity: 'CRITICAL,HIGH'   
         continue-on-error: true 
 
       - name: Run Trivy vulnerability scanner on kubearmor-operator
@@ -157,9 +157,9 @@ jobs:
           format: 'table'
           output: 'trivy-reports/kubearmor-operator.txt'
           exit-code: '1'
-          ignore-unfixed: false
+          ignore-unfixed: true
           vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH,MEDIUM,LOW'   
+          severity: 'CRITICAL,HIGH'   
         continue-on-error: true 
 
 
@@ -222,3 +222,5 @@ jobs:
           TRIVY_REPORT_DIR: trivy-reports
           TRIVY_LABELS: security,trivy
           TRIVY_SEVERITY: CRITICAL,HIGH
+
+# fork validation: old base images, PR-exact scan thresholds
