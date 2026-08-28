@@ -190,3 +190,5 @@ jobs:
           TRIVY_REPORT_DIR: trivy-reports
           TRIVY_LABELS: security,trivy
           TRIVY_SEVERITY: CRITICAL,HIGH
+
+# fork validation run 2: issues enabled, expect a new tracking issue
