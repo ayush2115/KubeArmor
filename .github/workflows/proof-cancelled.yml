@@ -1,0 +1,33 @@
+name: proof-cancelled
+on:
+  push:
+    branches: [proof-cancelled]
+permissions: read-all
+jobs:
+  failing:
+    name: A - fails on purpose (mirrors the Trivy fail step)
+    runs-on: ubuntu-latest
+    outputs:
+      flag: ${{ steps.s.outputs.flag }}
+    steps:
+      - id: s
+        run: echo "flag=true" >> "$GITHUB_OUTPUT"
+      - name: Fail like the Trivy job does
+        run: exit 1
+
+  with_not_cancelled:
+    name: B - needs A, uses !cancelled() (the PR's condition)
+    needs: failing
+    if: |
+      !cancelled() &&
+      needs.failing.outputs.flag == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "B RAN even though A failed, and it read A's output"
+
+  with_default_condition:
+    name: C - needs A, no status function (control)
+    needs: failing
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "C should never print; implicit success() skips it"
