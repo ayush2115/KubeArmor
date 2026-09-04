@@ -21,8 +21,8 @@ permissions: read-all
 jobs:
   build:
     name: Run trivy scan
-    if: github.repository == 'kubearmor/kubearmor'
-    runs-on: oracle-vm-16cpu-64gb-x86-64
+    if: github.repository == 'ayush2115/kubearmor'
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
     timeout-minutes: 150
