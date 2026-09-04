@@ -222,3 +222,5 @@ jobs:
           TRIVY_REPORT_DIR: trivy-reports
           TRIVY_LABELS: security,trivy
           TRIVY_SEVERITY: CRITICAL,HIGH
+
+# round 3: expect dedup comments, not new issues
